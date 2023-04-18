@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ItuneSearcher</string>
+    <string name="home_input_hint">search here ....</string>
+</resources>
