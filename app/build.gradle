@@ -23,6 +23,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        dev {
+            applicationIdSuffix ".uat"
+            versionNameSuffix "(dev)"
+        }
+        pro {
+            applicationIdSuffix ".pro"
+            versionNameSuffix "(pro)"
+        }
+    }
+
+    sourceSets {
+        dev.setRoot('src/dev')
+        pro.setRoot('src/pro')
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -30,9 +47,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    flavorDimensions "default"
 }
 
 dependencies {
+
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
