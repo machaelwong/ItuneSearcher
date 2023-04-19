@@ -4,6 +4,8 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import mako.application.itunesearcher.BR
 import mako.application.itunesearcher.R
 import mako.application.itunesearcher.base.BaseBindingFragment
@@ -11,6 +13,7 @@ import mako.application.itunesearcher.databinding.FragmentHomeBinding
 
 class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnItemSelectedListener {
     private lateinit var viewModel: HomeViewModel
+    private lateinit var adapter: HomeListAdapter
 
     override fun getLayoutResources(): Int {
         return R.layout.fragment_home
@@ -30,13 +33,20 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
                 homeSpinner.onItemSelectedListener = this@HomeFragment
             }
 
+            // list view
+            adapter = HomeListAdapter(requireContext())
+            homeResultList.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            homeResultList.adapter = adapter
+
+            // view model init
             viewModel = ViewModelProviders.of(requireActivity())
                 .get(HomeViewModel::class.java)
 
             viewModel.getLiveData()
                 .observe(requireActivity()) {
                     it?.apply {
-
+                        adapter.refresh(songs = results)
+                        adapter.notifyDataSetChanged()
                     }
 
                     viewBinding.setVariable(BR.isProcessing, false)

@@ -7,7 +7,7 @@ import mako.application.itunesearcher.base.BaseViewModel
 
 class HomeViewModel: BaseViewModel<SearchResult>() {
     fun search(key: String) {
-        ItuneAPI.search(key, "songs").subscribe(object: io.reactivex.Observer<SearchResult> {
+        ItuneAPI.search(key, "song").subscribe(object: io.reactivex.Observer<SearchResult> {
             lateinit var response: SearchResult
 
             override fun onSubscribe(d: Disposable) {}
