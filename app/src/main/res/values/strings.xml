@@ -3,8 +3,9 @@
     <string name="home_input_hint">search here ....</string>
 
     <string-array name="home_filter">
-        <item>songs</item>
-        <item>albums</item>
-        <item>artists</item>
+        <item>Song</item>
+        <item>Album</item>
+        <item>Artist</item>
     </string-array>
+
 </resources>

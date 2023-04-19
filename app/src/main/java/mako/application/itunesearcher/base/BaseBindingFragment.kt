@@ -1,4 +1,4 @@
-package mako.application.itunesearcher.fragment
+package mako.application.itunesearcher.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,20 +9,20 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
 abstract class BaseBindingFragment<T : ViewDataBinding>: Fragment(){
-    lateinit var binding: T
+    lateinit var viewBinding: T
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, getLayoutResources(), container, false)
-        return binding.root
+        viewBinding = DataBindingUtil.inflate(inflater, getLayoutResources(), container, false)
+        return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onViewCreated(binding)
+        onViewCreated(viewBinding)
     }
 
     abstract fun getLayoutResources(): Int

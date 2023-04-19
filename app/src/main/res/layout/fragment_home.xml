@@ -4,49 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="isProcessing"
+            type="Boolean" />
+    </data>
 
-        <!-- search bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_inputbox"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_margin="12dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/home_input"
-                android:layout_width="0dp"
+            <!-- search bar -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1.0"
-                android:background="#00000000"
-                android:drawableStart="@drawable/ic_search"
-                android:drawablePadding="5dp"
-                android:hint="@string/home_input_hint"
-                android:maxLines="5"
-                android:paddingLeft="12dp"
-                android:paddingTop="8dp"
-                android:paddingRight="12dp"
-                android:paddingBottom="8dp" />
+                android:background="@drawable/bg_inputbox"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_margin="12dp">
 
-            <Spinner
-                android:id="@+id/home_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/home_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.0"
+                    android:background="#00000000"
+                    android:drawableStart="@drawable/ic_search"
+                    android:drawablePadding="5dp"
+                    android:hint="@string/home_input_hint"
+                    android:maxLines="5"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="8dp" />
+
+                <Spinner
+                    android:id="@+id/home_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_result_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"/>
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/home_result_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0"/>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{isProcessing? View.VISIBLE : View.GONE}"
+            android:layout_centerInParent="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </layout>
