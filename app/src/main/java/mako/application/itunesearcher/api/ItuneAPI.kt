@@ -10,6 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 object ItuneAPI {
+    val REQUEST_LIMIT = 20
 
     private val service: ItunesApiService get() = Retrofit.Builder()
         .baseUrl(ENV.URL)
@@ -17,11 +18,12 @@ object ItuneAPI {
         .build().create(ItunesApiService::class.java)
 
     @Synchronized
-    fun search(keyword: String, filter: String): Observable<SearchResult> {
+    fun search(keyword: String, filter: String, offset: Int): Observable<SearchResult> {
         return Observable.create { emitter ->
             service.searchSongs(
                 term = keyword,
-                entity = filter).enqueue(BaseCallback<SearchResult>(SearchResult(), emitter))
+                entity = filter,
+                offset = offset).enqueue(BaseCallback<SearchResult>(SearchResult(), emitter))
         }
     }
 
@@ -30,8 +32,8 @@ object ItuneAPI {
         fun searchSongs(
             @Query("term") term: String,
             @Query("entity") entity: String,
-            @Query("limit") limit: Int = 20,
-            @Query("offset") offset: Int = 20
+            @Query("limit") limit: Int = REQUEST_LIMIT,
+            @Query("offset") offset: Int
         ): Call<SearchResult>
     }
 }

@@ -6,8 +6,14 @@ import mako.application.itunesearcher.api.SearchResult
 import mako.application.itunesearcher.base.BaseViewModel
 
 class HomeViewModel: BaseViewModel<SearchResult>() {
-    fun search(key: String) {
-        ItuneAPI.search(key, "song").subscribe(object: io.reactivex.Observer<SearchResult> {
+    private var offset = 0;
+
+    @Synchronized
+    fun search(key: String, filter: String, resetOffset: Boolean) {
+
+        if(resetOffset) offset = 0
+
+        ItuneAPI.search(key, filter, offset).subscribe(object: io.reactivex.Observer<SearchResult> {
             lateinit var response: SearchResult
 
             override fun onSubscribe(d: Disposable) {}
@@ -22,6 +28,7 @@ class HomeViewModel: BaseViewModel<SearchResult>() {
 
             override fun onComplete() {
                 this.response?.apply {
+                    offset += (ItuneAPI.REQUEST_LIMIT - 1)
                     onDataChanged(this)
                 }
             }

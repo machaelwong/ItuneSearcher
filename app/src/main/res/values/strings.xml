@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">ItuneSearcher</string>
     <string name="home_input_hint">search here ....</string>
+    <string name="nav_bottom_home">Home</string>
+    <string name="nav_bottom_favorite">Favourite</string>
+    <string name="error_empty_input">keyword is empty ...</string>
 
     <string-array name="home_filter">
         <item>Song</item>

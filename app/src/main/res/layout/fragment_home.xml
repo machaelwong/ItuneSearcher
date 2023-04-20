@@ -9,6 +9,9 @@
         <variable
             name="isProcessing"
             type="Boolean" />
+        <variable
+            name="showMainProgress"
+            type="Boolean" />
     </data>
 
     <RelativeLayout
@@ -27,9 +30,9 @@
                 android:background="@drawable/bg_inputbox"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_margin="12dp">
+                android:layout_margin="@dimen/global_padding">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/home_input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -39,11 +42,20 @@
                     android:drawableStart="@drawable/ic_search"
                     android:drawablePadding="5dp"
                     android:hint="@string/home_input_hint"
-                    android:maxLines="5"
-                    android:paddingLeft="12dp"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
+                    android:lines="1"
+                    android:paddingLeft="@dimen/global_padding"
                     android:paddingTop="8dp"
-                    android:paddingRight="12dp"
+                    android:paddingRight="@dimen/global_padding"
                     android:paddingBottom="8dp" />
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#404040"
+                    android:layout_margin="8dp"/>
 
                 <Spinner
                     android:id="@+id/home_spinner"
@@ -60,11 +72,17 @@
 
         </LinearLayout>
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{isProcessing? View.VISIBLE : View.GONE}"
-            android:layout_centerInParent="true"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{showMainProgress? View.VISIBLE : View.GONE}">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

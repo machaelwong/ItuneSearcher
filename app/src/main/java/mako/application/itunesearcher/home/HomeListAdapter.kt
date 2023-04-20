@@ -8,26 +8,59 @@ import androidx.recyclerview.widget.RecyclerView
 import mako.application.itunesearcher.R
 import mako.application.itunesearcher.api.Song
 
-class HomeListAdapter(val c: Context): RecyclerView.Adapter<DetailsHolder>() {
-    private var songs: List<Song> = ArrayList()
+class HomeListAdapter(val c: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val CELL_NORMAL = 0
+    private val CELL_LOADING = 1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailsHolder {
+    private var items = ArrayList<Song>()
+    private var footer: Song = Song(isFooterItem = true)
+    private var filter: String = ""
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        when(viewType) {
+            CELL_LOADING -> {
+                return FooterHolder(DataBindingUtil.inflate(LayoutInflater.from(c), R.layout.cell_footer, parent, false))
+            }
+        }
+
         return DetailsHolder(DataBindingUtil.inflate(LayoutInflater.from(c), R.layout.cell_details, parent, false))
     }
 
-    override fun onBindViewHolder(holder: DetailsHolder, position: Int) {
-        holder.bind(getSong(position))
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        // details holder
+        if(holder is DetailsHolder) {
+            holder.bind(getSong(position), filter)
+        }
     }
 
     override fun getItemCount(): Int {
-        return songs.size
+        return items.size
     }
 
-    fun refresh(songs: List<Song>) {
-        this.songs = songs
+    override fun getItemViewType(position: Int): Int {
+        return if(getSong(position).isFooterItem) CELL_LOADING else CELL_NORMAL
+    }
+
+    fun reset() {
+        items.clear()
+    }
+
+    fun refresh(response: ArrayList<Song>, filter: String) {
+        this.filter = filter
+
+        if(items.contains(footer)) {
+            items.remove(footer)
+        }
+
+        var temp = ArrayList<Song>()
+        temp.addAll(this.items)
+        temp.addAll(response)
+        temp.add(footer)
+
+        items.addAll(temp)
     }
 
     fun getSong(pos: Int): Song {
-        return songs[pos]
+        return items[pos]
     }
 }
