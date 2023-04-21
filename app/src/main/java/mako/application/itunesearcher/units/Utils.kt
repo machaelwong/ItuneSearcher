@@ -3,6 +3,7 @@ package mako.application.itunesearcher.units
 import android.content.Context
 import android.content.SharedPreferences
 import android.text.TextUtils
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
@@ -38,8 +39,9 @@ object Utils {
     }
 
     @Synchronized
-    fun saveFavouriteList(c: Context, songs: ArrayList<SearchResult>) {
+    fun saveFavouriteList(c: Context, songs: ArrayList<Song>) {
         var preStorage = Gson().toJson(songs)
+        Log.d("machael", "save: "+preStorage)
         putString(c, KEY_FAVOURITE, preStorage)
     }
 
@@ -54,7 +56,7 @@ object Utils {
                 songs = Gson().fromJson(storage, token.type)
             } catch (e: JsonSyntaxException) { }
         }
-
+        Log.d("machael", "get store: "+storage)
         return songs
     }
 }

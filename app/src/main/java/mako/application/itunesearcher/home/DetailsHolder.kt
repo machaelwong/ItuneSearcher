@@ -11,23 +11,24 @@ import mako.application.itunesearcher.listener.OnFavouriteClickedListener
 import mako.application.itunesearcher.units.Utils
 
 class DetailsHolder(val binding: CellDetailsBinding): RecyclerView.ViewHolder(binding.root) {
-    fun bind(position: Int, song: Song, filter: String, listener:  OnFavouriteClickedListener) {
+    fun bind(position: Int, song: Song, listener:  OnFavouriteClickedListener) {
         binding.apply {
 
+            detailsFav.isSelected = song.isFavourited
             detailsFav.setOnClickListener { v ->
                 listener.onFavouriteClicked(position)
             }
 
-            when(filter) {
-                Utils.FILTER_TYPE_SONG -> {
+            when(song.wrapperType) {
+                Utils.WRAPPER_TYPE_TRACK -> {
                     detailsName.text = song.trackName
                     detailsArtistName.text = song.artistName
                 }
-                Utils.FILTER_TYPE_ALBUM -> {
+                Utils.WRAPPER_TYPE_COLLECTION -> {
                     detailsName.text = song.collectionName
                     detailsArtistName.text = song.artistName
                 }
-                Utils.FILTER_TYPE_ARTIST -> {
+                Utils.WRAPPER_TYPE_ARTIST -> {
                     detailsName.text = song.artistName
                     detailsArtistName.text = song.primaryGenreNameP
                 }

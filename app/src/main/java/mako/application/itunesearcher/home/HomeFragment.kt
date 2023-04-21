@@ -22,6 +22,7 @@ import mako.application.itunesearcher.R
 import mako.application.itunesearcher.api.ItuneAPI
 import mako.application.itunesearcher.base.BaseBindingFragment
 import mako.application.itunesearcher.databinding.FragmentHomeBinding
+import mako.application.itunesearcher.units.Utils
 
 
 class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnItemSelectedListener {
@@ -81,9 +82,7 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
             {
                     it?.apply {
                         if(results.size < ItuneAPI.REQUEST_LIMIT) hasNextPage = false
-
                         adapter.refresh(response = results, filterCategory)
-                        adapter.notifyDataSetChanged()
                     }
 
                     viewBinding.setVariable(BR.showMainProgress, false)
@@ -119,8 +118,8 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
             filterCategory = viewBinding.homeSpinner.adapter.getItem(spinnerSelectedId)!!.toString()
             filterCategory = filterCategory.lowercase()
 
-            if(filterCategory == "artist") {
-                filterCategory = "musicArtist"
+            if(filterCategory == Utils.WRAPPER_TYPE_ARTIST) {
+                filterCategory = Utils.FILTER_TYPE_ARTIST
             }
 
             viewBinding.setVariable(BR.showMainProgress, true)
