@@ -29,15 +29,17 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
     private lateinit var adapter: HomeListAdapter
     private lateinit var llm: LinearLayoutManager
 
-    private var userInput = "";
+    private var userInput = ""
+    private var spinnerSelectedId = 0
     private var filterCategory: String = "song"
-    private var hasNextPage = true;
+    private var hasNextPage = true
 
     override fun getLayoutResources(): Int { return R.layout.fragment_home }
 
     override fun onViewCreated(viewBinding: FragmentHomeBinding)
     {
         viewBinding.apply {
+
             // init spinner
             ArrayAdapter.createFromResource(
                 requireContext(),
@@ -96,38 +98,42 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        parent?.apply {
-            filterCategory = getItemAtPosition(position)!!.toString()
-            filterCategory = filterCategory.lowercase()
-
-            if(filterCategory == "artist") {
-                filterCategory = "musicArtist"
-            }
-        }
+        spinnerSelectedId = position
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     private fun submit(homeInput: AppCompatEditText) {
 
-        // get user input
-        userInput = homeInput.text.toString()
-        homeInput.setText("")
+        // check if empty or not
+        if(!TextUtils.isEmpty(homeInput.text.toString())) {
+            hasNextPage = true
 
-        // reset adapter data
-        adapter.reset()
+            // get user input
+            userInput = homeInput.text.toString().replace(" ", "+")
 
-        if(!TextUtils.isEmpty(userInput)) {
-            userInput = userInput.replace(" ", "+")
+            // reset adapter data
+            adapter.reset()
+
+            // get filter
+            filterCategory = viewBinding.homeSpinner.adapter.getItem(spinnerSelectedId)!!.toString()
+            filterCategory = filterCategory.lowercase()
+
+            if(filterCategory == "artist") {
+                filterCategory = "musicArtist"
+            }
+
             viewBinding.setVariable(BR.showMainProgress, true)
             viewBinding.executePendingBindings()
+            homeInput.setText("")
+
             actionSearch(true)
-            hasNextPage = true
 
         } else {
             Snackbar.make(requireContext(), homeInput, resources.getString(R.string.error_empty_input), Snackbar.LENGTH_SHORT).show()
         }
 
+        homeInput.clearFocus()
         val imm = requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(homeInput.windowToken, 0)
     }
@@ -135,7 +141,6 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
     fun actionSearch(resetOffset: Boolean) {
         if(viewBinding.isProcessing!!) return
 
-        Log.d("machael", "trigger")
         viewBinding.setVariable(BR.isProcessing, true)
         viewBinding.executePendingBindings()
         viewModel.search(userInput, filterCategory, resetOffset)
