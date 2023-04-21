@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import mako.application.itunesearcher.BR
 import mako.application.itunesearcher.R
+import mako.application.itunesearcher.api.ItuneAPI
 import mako.application.itunesearcher.base.BaseBindingFragment
 import mako.application.itunesearcher.databinding.FragmentHomeBinding
 
@@ -30,6 +31,7 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
 
     private var userInput = "";
     private var filterCategory: String = "song"
+    private var hasNextPage = true;
 
     override fun getLayoutResources(): Int { return R.layout.fragment_home }
 
@@ -55,7 +57,7 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
             homeResultList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if (!isProcessing!! && llm.findLastVisibleItemPosition() == adapter.itemCount - 1) {
+                    if (hasNextPage && !isProcessing!! && llm.findLastVisibleItemPosition() == adapter.itemCount - 1) {
                         actionSearch(false)
                     }
                 }
@@ -70,13 +72,14 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
             }
 
             // view model init
-            viewModel = ViewModelProviders.of(requireActivity())
-                .get(HomeViewModel::class.java)
+            viewModel = ViewModelProviders.of(requireActivity())[HomeViewModel::class.java]
 
             // receive live data
-            viewModel.getLiveData()
-                .observe(requireActivity()) {
+            viewModel.getLiveData().observe(requireActivity())
+            {
                     it?.apply {
+                        if(results.size < ItuneAPI.REQUEST_LIMIT) hasNextPage = false
+
                         adapter.refresh(response = results, filterCategory)
                         adapter.notifyDataSetChanged()
                     }
@@ -105,7 +108,8 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
-    fun submit(homeInput: AppCompatEditText) {
+    private fun submit(homeInput: AppCompatEditText) {
+
         // get user input
         userInput = homeInput.text.toString()
         homeInput.setText("")
@@ -118,6 +122,7 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
             viewBinding.setVariable(BR.showMainProgress, true)
             viewBinding.executePendingBindings()
             actionSearch(true)
+            hasNextPage = true
 
         } else {
             Snackbar.make(requireContext(), homeInput, resources.getString(R.string.error_empty_input), Snackbar.LENGTH_SHORT).show()

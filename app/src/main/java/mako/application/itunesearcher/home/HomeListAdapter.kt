@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import mako.application.itunesearcher.R
+import mako.application.itunesearcher.api.ItuneAPI
 import mako.application.itunesearcher.api.Song
 
 class HomeListAdapter(val c: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -52,12 +53,9 @@ class HomeListAdapter(val c: Context): RecyclerView.Adapter<RecyclerView.ViewHol
             items.remove(footer)
         }
 
-        var temp = ArrayList<Song>()
-        temp.addAll(this.items)
-        temp.addAll(response)
-        temp.add(footer)
+        items.addAll(response)
 
-        items.addAll(temp)
+        if(response.size == ItuneAPI.REQUEST_LIMIT) items.add(footer)
     }
 
     fun getSong(pos: Int): Song {

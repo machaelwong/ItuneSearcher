@@ -28,7 +28,7 @@ class HomeViewModel: BaseViewModel<SearchResult>() {
 
             override fun onComplete() {
                 this.response?.apply {
-                    offset += (ItuneAPI.REQUEST_LIMIT - 1)
+                    offset += ItuneAPI.REQUEST_LIMIT
                     onDataChanged(this)
                 }
             }
