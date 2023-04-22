@@ -23,7 +23,6 @@ class FavouriteFragment: BaseBindingFragment<FragmentFavouriteBinding>() {
             adapter = FavouriteAdapter(requireContext(), ViewModelProviders.of(requireActivity())[HomeViewModel::class.java])
             favouriteList.layoutManager = llm
             favouriteList.adapter = adapter
-
             adapter.refresh(Utils.getFavouriteList(requireContext()))
         }
     }

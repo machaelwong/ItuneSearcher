@@ -15,7 +15,6 @@ class BaseCallback<T : Any>(var cls: T, private val emitter: ObservableEmitter<T
 
     override fun onResponse(call: Call<T>, response: Response<T>) {
         response.body()?.apply {
-            // TODO ...
             emitter.onNext(this)
         }
 
