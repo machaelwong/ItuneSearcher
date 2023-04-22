@@ -1,10 +1,9 @@
 package mako.application.itunesearcher.home
 
 import android.text.TextUtils
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import mako.application.itunesearcher.api.SearchResult
+import mako.application.itunesearcher.R
 import mako.application.itunesearcher.api.Song
 import mako.application.itunesearcher.databinding.CellDetailsBinding
 import mako.application.itunesearcher.listener.OnFavouriteClickedListener
@@ -34,8 +33,15 @@ class DetailsHolder(val binding: CellDetailsBinding): RecyclerView.ViewHolder(bi
                 }
             }
 
-            if(!TextUtils.isEmpty(song.artworkUrl100))
-            Picasso.get().load(song.artworkUrl100).into(detailsPhoto)
+            if(!TextUtils.isEmpty(song.artworkUrl100)) {
+                Picasso.get().load(song.artworkUrl100).into(detailsPhoto)
+            } else {
+                if(song.wrapperType == Utils.WRAPPER_TYPE_ARTIST) {
+                    detailsPhoto.setImageResource(R.drawable.ic_details_artist)
+                } else {
+                    detailsPhoto.setImageDrawable(null)
+                }
+            }
         }
     }
 }

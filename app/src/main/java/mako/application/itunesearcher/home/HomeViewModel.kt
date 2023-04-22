@@ -1,11 +1,15 @@
 package mako.application.itunesearcher.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.Disposable
 import mako.application.itunesearcher.api.ItuneAPI
 import mako.application.itunesearcher.api.SearchResult
 import mako.application.itunesearcher.base.BaseViewModel
 
 class HomeViewModel: BaseViewModel<SearchResult>() {
+    private val _isFavouriteRemoved = MutableLiveData<Boolean>()
+    private val isFavouriteRemoved: LiveData<Boolean> = _isFavouriteRemoved
     private var offset = 0;
 
     @Synchronized
@@ -33,5 +37,13 @@ class HomeViewModel: BaseViewModel<SearchResult>() {
                 }
             }
         })
+    }
+
+    fun onFavouriteRemoved(values: Boolean) {
+        _isFavouriteRemoved.value = values
+    }
+
+    fun isFavouriteRemoved(): LiveData<Boolean> {
+        return isFavouriteRemoved
     }
 }

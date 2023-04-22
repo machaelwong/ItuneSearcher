@@ -4,6 +4,10 @@
     <string name="nav_bottom_home">Home</string>
     <string name="nav_bottom_favorite">Favourite</string>
     <string name="error_empty_input">keyword is empty ...</string>
+    <string name="msg_favourite_delete">Are are sure to remove this item?</string>
+    <string name="label_Okay">Okay</string>
+    <string name="label_remove">Remove</string>
+    <string name="label_cancel">Cancel</string>
 
     <string-array name="home_filter">
         <item>Song</item>

@@ -3,13 +3,11 @@ package mako.application.itunesearcher.home
 import android.content.Context
 import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import mako.application.itunesearcher.R
 import mako.application.itunesearcher.api.ItuneAPI
-import mako.application.itunesearcher.api.SearchResult
 import mako.application.itunesearcher.api.Song
 import mako.application.itunesearcher.listener.OnFavouriteClickedListener
 import mako.application.itunesearcher.units.Utils
@@ -125,6 +123,13 @@ class HomeListAdapter(val c: Context): RecyclerView.Adapter<RecyclerView.ViewHol
         if(response.size == ItuneAPI.REQUEST_LIMIT) items.add(footer)
 
         notifyDataSetChanged()
+    }
+
+    fun resetFavourite() {
+        for(i in items) {
+            i.isFavourited = false
+        }
+        setFavourite()
     }
 
     private fun setFavourite() {

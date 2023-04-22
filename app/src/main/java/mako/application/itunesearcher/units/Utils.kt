@@ -7,7 +7,6 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
-import mako.application.itunesearcher.api.SearchResult
 import mako.application.itunesearcher.api.Song
 
 object Utils {
@@ -23,6 +22,8 @@ object Utils {
     var WRAPPER_TYPE_ARTIST = "artist"
     var WRAPPER_TYPE_COLLECTION = "collection"
     var WRAPPER_TYPE_TRACK = "track"
+
+    var ACTION_FAV_REFRESH = "actionFavRefresh"
 
     fun putString(c: Context, key: String, value: String) {
         sp = c.getSharedPreferences(c.applicationInfo.name, Context.MODE_PRIVATE)

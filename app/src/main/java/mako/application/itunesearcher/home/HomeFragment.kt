@@ -1,18 +1,13 @@
 package mako.application.itunesearcher.home
 
 import android.app.Activity
-import android.content.Context
 import android.text.TextUtils
-import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +29,7 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
     private var spinnerSelectedId = 0
     private var filterCategory: String = "song"
     private var hasNextPage = true
+    private var hasInit = false
 
     override fun getLayoutResources(): Int { return R.layout.fragment_home }
 
@@ -80,15 +76,19 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
             // receive live data
             viewModel.getLiveData().observe(requireActivity())
             {
-                    it?.apply {
-                        if(results.size < ItuneAPI.REQUEST_LIMIT) hasNextPage = false
-                        adapter.refresh(response = results, filterCategory)
-                    }
-
-                    viewBinding.setVariable(BR.showMainProgress, false)
-                    viewBinding.setVariable(BR.isProcessing, false)
-                    viewBinding.executePendingBindings()
+                it?.apply {
+                    if(results.size < ItuneAPI.REQUEST_LIMIT) hasNextPage = false
+                    adapter.refresh(response = results, filterCategory)
                 }
+
+                viewBinding.setVariable(BR.showMainProgress, false)
+                viewBinding.setVariable(BR.isProcessing, false)
+                viewBinding.executePendingBindings()
+            }
+
+            viewModel.isFavouriteRemoved().observe(requireActivity()) {
+                refreshFavourite()
+            }
 
             viewBinding.setVariable(BR.showMainProgress, false)
             viewBinding.setVariable(BR.isProcessing, false)
@@ -96,11 +96,21 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.getLiveData().removeObservers(this@HomeFragment)
+    }
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         spinnerSelectedId = position
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+    fun refreshFavourite() {
+        adapter.resetFavourite()
+        adapter.notifyDataSetChanged()
+    }
 
     private fun submit(homeInput: AppCompatEditText) {
 
