@@ -1,26 +1,34 @@
 package mako.application.itunesearcher.home
 
 import android.text.TextUtils
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import mako.application.itunesearcher.api.SearchResult
 import mako.application.itunesearcher.api.Song
 import mako.application.itunesearcher.databinding.CellDetailsBinding
+import mako.application.itunesearcher.listener.OnFavouriteClickedListener
+import mako.application.itunesearcher.units.Utils
 
 class DetailsHolder(val binding: CellDetailsBinding): RecyclerView.ViewHolder(binding.root) {
-    fun bind(song: Song, filter: String) {
+    fun bind(position: Int, song: Song, listener:  OnFavouriteClickedListener) {
         binding.apply {
 
-            when(filter) {
-                "song" -> {
+            detailsFav.isSelected = song.isFavourited
+            detailsFav.setOnClickListener { v ->
+                listener.onFavouriteClicked(position)
+            }
+
+            when(song.wrapperType) {
+                Utils.WRAPPER_TYPE_TRACK -> {
                     detailsName.text = song.trackName
                     detailsArtistName.text = song.artistName
                 }
-                "album" -> {
+                Utils.WRAPPER_TYPE_COLLECTION -> {
                     detailsName.text = song.collectionName
                     detailsArtistName.text = song.artistName
                 }
-                "musicArtist" -> {
+                Utils.WRAPPER_TYPE_ARTIST -> {
                     detailsName.text = song.artistName
                     detailsArtistName.text = song.primaryGenreNameP
                 }
