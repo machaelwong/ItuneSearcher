@@ -125,11 +125,10 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
             adapter.reset()
 
             // get filter
-            filterCategory = viewBinding.homeSpinner.adapter.getItem(spinnerSelectedId)!!.toString()
-            filterCategory = filterCategory.lowercase()
-
-            if(filterCategory == Utils.WRAPPER_TYPE_ARTIST) {
-                filterCategory = Utils.FILTER_TYPE_ARTIST
+            when(spinnerSelectedId) {
+                0 -> filterCategory = Utils.FILTER_TYPE_SONG
+                1 -> filterCategory = Utils.FILTER_TYPE_ALBUM
+                2 -> filterCategory = Utils.FILTER_TYPE_ARTIST
             }
 
             viewBinding.setVariable(BR.showMainProgress, true)
