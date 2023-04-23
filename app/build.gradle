@@ -16,8 +16,22 @@ android {
         compileSdkVersion 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        dev {
+            storeFile file('keystore/debug.keystore')
+            storePassword 'android'
+            keyAlias = 'androiddebugkey'
+            keyPassword 'android'
+        }
+        pro {
+            storeFile file('keystore/itunesearcher.keystore')
+            storePassword '123456789'
+            keyAlias = 'machael'
+            keyPassword '123456789'
+        }
     }
 
     buildTypes {
@@ -29,10 +43,12 @@ android {
 
     productFlavors {
         dev {
+            signingConfig signingConfigs.dev
             applicationIdSuffix ".uat"
             versionNameSuffix "(dev)"
         }
         pro {
+            signingConfig signingConfigs.pro
             applicationIdSuffix ".pro"
             versionNameSuffix "(pro)"
         }
