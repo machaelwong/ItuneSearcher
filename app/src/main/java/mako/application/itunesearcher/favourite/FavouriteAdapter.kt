@@ -24,7 +24,7 @@ class FavouriteAdapter(val c: Context, val model: HomeViewModel): RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: DetailsHolder, position: Int) {
-        holder.bind(position, songs[position], this@FavouriteAdapter)
+        holder.bind(c, position, songs[position], this@FavouriteAdapter)
     }
 
     override fun getItemCount(): Int = songs.size

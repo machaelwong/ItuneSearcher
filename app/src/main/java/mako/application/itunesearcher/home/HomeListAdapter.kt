@@ -33,7 +33,7 @@ class HomeListAdapter(val c: Context): RecyclerView.Adapter<RecyclerView.ViewHol
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         // details holder
         if(holder is DetailsHolder) {
-            holder.bind(position, getSong(position), this@HomeListAdapter)
+            holder.bind(c, position, getSong(position), this@HomeListAdapter)
         }
     }
 

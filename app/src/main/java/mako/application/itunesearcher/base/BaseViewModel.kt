@@ -8,8 +8,8 @@ open abstract class BaseViewModel<T> : ViewModel() {
     private val _mutableLiveData = MutableLiveData<T>()
     private val mLiveData: LiveData<T> = _mutableLiveData
 
-    fun onDataChanged(values: T) {
-        _mutableLiveData.value = values!!
+    fun onDataChanged(values: T?) {
+        _mutableLiveData.value = values
     }
 
     fun getLiveData(): LiveData<T> {

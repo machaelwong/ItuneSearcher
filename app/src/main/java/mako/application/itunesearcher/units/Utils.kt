@@ -1,16 +1,21 @@
 package mako.application.itunesearcher.units
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
+import mako.application.itunesearcher.DetailsPageActivity
 import mako.application.itunesearcher.api.Song
 
 object Utils {
     private val KEY_FAVOURITE = "key_favourites"
+    val KEY_DETAIL_TITLE = "detail_title"
+    val KEY_DETAIL_DESC = "detail_desc"
+    val KEY_DETAIL_IMAGE = "detail_image"
 
     private lateinit var sp: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -37,6 +42,14 @@ object Utils {
     fun getString(c: Context, key: String): String {
         sp = c.getSharedPreferences(c.applicationInfo.name, Context.MODE_PRIVATE)
         return sp.getString(key, "") ?: ""
+    }
+
+    fun toggleDetailsPageActivity(c: Context, title: String, desc: String, image: String) {
+        var intent = Intent(c, DetailsPageActivity::class.java)
+        intent.putExtra(KEY_DETAIL_TITLE, title)
+        intent.putExtra(KEY_DETAIL_DESC, desc)
+        intent.putExtra(KEY_DETAIL_IMAGE, image)
+        c.startActivity(intent)
     }
 
     @Synchronized
