@@ -1,7 +1,0 @@
-#Sun Apr 23 23:23:31 HKT 2023
-base.1=/Users/machael/Documents/development/ItuneSearcher/app/build/intermediates/dex/proRelease/mergeDexProRelease/classes2.dex
-path.1=classes2.dex
-base.0=/Users/machael/Documents/development/ItuneSearcher/app/build/intermediates/dex/proRelease/mergeDexProRelease/classes.dex
-renamed.1=classes2.dex
-renamed.0=classes.dex
-path.0=classes.dex
