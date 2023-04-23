@@ -73,6 +73,10 @@ android {
     }
 
     flavorDimensions "default"
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 dependencies {
@@ -89,7 +93,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // picasso: image loader
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.picasso:picasso:2.8'
 
     // reactivex
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
