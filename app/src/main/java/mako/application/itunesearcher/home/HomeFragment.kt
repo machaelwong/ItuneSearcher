@@ -80,6 +80,8 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
                     adapter.refresh(response = results, filterCategory)
                 }
 
+                homeNoResult.visibility = if(adapter.itemCount == 0) View.VISIBLE else View.GONE
+
                 viewBinding.setVariable(BR.showMainProgress, false)
                 viewBinding.setVariable(BR.isProcessing, false)
                 viewBinding.executePendingBindings()

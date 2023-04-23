@@ -8,6 +8,7 @@
     <string name="label_Okay">是的</string>
     <string name="label_remove">刪除</string>
     <string name="label_cancel">不了</string>
+    <string name="msg_no_result">什麼也沒有...</string>
 
     <string-array name="home_filter">
         <item>歌曲</item>

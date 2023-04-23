@@ -18,10 +18,9 @@
         <activity
             android:name=".DetailsPageActivity"
             android:exported="false"
-            android:label="@string/title_activity_scrolling"
             android:theme="@style/Theme.ItuneSearcher.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".favourite.FavouriteActivity" />
     </application>
 
