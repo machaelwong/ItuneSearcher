@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
 //         throw RuntimeException("Test Crash") // Force a crash
 
-        supportFragmentManager?.apply {
+        supportFragmentManager.apply {
             beginTransaction().replace(R.id.home_container, homeFragment).commitAllowingStateLoss()
         }
     }

@@ -28,7 +28,7 @@ class DetailsPageActivity : AppCompatActivity() {
         binding = ActivityDetailspageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding?.apply {
+        binding.apply {
             toolbarLayout.title = detailTitle
 
             if(!TextUtils.isEmpty(detailImage)) {
