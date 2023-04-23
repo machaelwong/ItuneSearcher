@@ -27,7 +27,7 @@ class HomeViewModel: BaseViewModel<SearchResult>() {
             }
 
             override fun onError(e: Throwable) {
-                onDataChanged(null)
+                onDataChanged(SearchResult())
             }
 
             override fun onComplete() {
