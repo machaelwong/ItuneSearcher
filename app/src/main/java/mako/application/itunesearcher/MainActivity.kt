@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // throw RuntimeException("Test Crash") // Force a crash
+
         supportFragmentManager?.apply {
             beginTransaction().replace(R.id.home_container, homeFragment).commitAllowingStateLoss()
         }

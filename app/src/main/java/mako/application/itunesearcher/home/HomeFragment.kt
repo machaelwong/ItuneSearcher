@@ -29,7 +29,6 @@ class HomeFragment: BaseBindingFragment<FragmentHomeBinding>(), AdapterView.OnIt
     private var spinnerSelectedId = 0
     private var filterCategory: String = "song"
     private var hasNextPage = true
-    private var hasInit = false
 
     override fun getLayoutResources(): Int { return R.layout.fragment_home }
 
