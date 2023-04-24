@@ -25,9 +25,9 @@
 
             <!-- search bar -->
             <LinearLayout
+                style="@style/style_searchbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_inputbox"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:layout_margin="@dimen/global_padding">
@@ -52,9 +52,9 @@
                     android:paddingBottom="8dp" />
 
                 <ImageView
+                    style="@style/style_searchbar_split"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#404040"
                     android:layout_margin="8dp"/>
 
                 <Spinner
@@ -94,7 +94,7 @@
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true" />
 
         </RelativeLayout>
 

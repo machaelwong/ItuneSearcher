@@ -45,7 +45,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="19dp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:text="name"/>
 
                 <TextView
@@ -54,7 +53,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:textSize="15dp"
-                    android:textColor="#b0b0b0"
                     android:text="desc"/>
 
             </LinearLayout>

@@ -22,4 +22,12 @@
     <style name="Theme.ItuneSearcher.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.ItuneSearcher.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="style_searchbar">
+        <item name="android:background">@drawable/bg_inputbox</item>
+    </style>
+
+    <style name="style_searchbar_split">
+        <item name="android:background">#404040</item>
+    </style>
 </resources>
