@@ -1,11 +1,8 @@
-
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
 
@@ -63,9 +60,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
 
     buildFeatures {
         dataBinding true
@@ -76,9 +70,6 @@ android {
     compileSdk 33
     buildToolsVersion '33.0.2'
 
-//    lint {
-//        baseline = file("lint-baseline.xml")
-//    }
 }
 
 dependencies {
