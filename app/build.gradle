@@ -73,6 +73,7 @@ android {
     }
 
     flavorDimensions "default"
+    namespace 'mako.application.itunesearcher'
 
 //    lint {
 //        baseline = file("lint-baseline.xml")
